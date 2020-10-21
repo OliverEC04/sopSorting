@@ -6,6 +6,7 @@ class BubbleSort
     {
         this.data = data;
         this.n = this.data.length;
+        this.steps = 0;
 
         return this.sort();
     }
@@ -17,16 +18,13 @@ class BubbleSort
 
         for (let i = 1; run; i++)
         {
-            clog("1 " + dataList[i]);
-            clog("2 " + dataList[i - 1]);
             dataList[i] = this.oneSort(dataList[i - 1]);
-            run = !arraysEqual(dataList[i], dataList[i - 1]);
-            clog("run " + run);
-            clog("3 " + dataList[i]);
-            clog("4 " + dataList[i - 1]);
+            run = !arrayEqual(dataList[i], dataList[i - 1]);
 
-            clog("sort() run index: " + String(i));
+            this.steps++;
         }
+
+        clog(this.steps + " steps");
 
         return dataList[dataList.length - 1];
     }
@@ -35,26 +33,18 @@ class BubbleSort
     {
         let data = [...array];
 
-        for (let i = 0; i < this.n; i++)
+        for (let i = 0; i < this.n - 1; i++)
         {
-            let comparison = this.compare(data[i], data[i + 1]);
-            data[i] = comparison[0];
-            data[i + 1] = comparison[1];
+            let low = data[i] < data[i + 1] ? data[i] : data[i + 1];
+            let high = data[i] > data[i + 1] ? data[i] : data[i + 1];
+
+            data[i] = low;
+            data[i + 1] = high;
+
+            this.steps++;
         }
 
         return data;
-    }
-
-    compare(a, b)
-    {
-        if (a > b)
-        {
-            return [b, a];
-        }
-        else
-        {
-            return [a, b];
-        }
     }
 }
 
@@ -84,18 +74,16 @@ function str(value)
     return JSON.stringify(value);
 }
 
-function arraysEqual(a, b) {
+function arrayEqual(a, b)
+{
     if (a === b) return true;
     if (a == null || b == null) return false;
     if (a.length !== b.length) return false;
   
-    // If you don't care about the order of the elements inside
-    // the array, you should sort both arrays here.
-    // Please note that calling sort on an array will modify that array.
-    // you might want to clone your array first.
-  
-    for (var i = 0; i < a.length; ++i) {
-      if (a[i] !== b[i]) return false;
+    for (var i = 0; i < a.length; ++i)
+    {
+        if (a[i] !== b[i]) return false;
     }
+    
     return true;
   }
