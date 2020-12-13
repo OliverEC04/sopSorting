@@ -1,15 +1,31 @@
-//<reference path="../P5Misc/p5.global-mode.d.ts" />
+﻿//<reference path="../P5Misc/p5.global-mode.d.ts" />
 
-function setup()
+// Konstanter
+const WINDOWSIZE = {
+    X: 1200, 
+    Y: 600
+};
+const INFOHEIGHT = 80;
+const SPEED = 100;
+
+// Variabler
+let tick = 0;
+let qStep = 0;
+
+async function setup()
 {
-    let window = createVector(800, 800);
-    createCanvas(window.x, window.y);
+    createCanvas(WINDOWSIZE.X, WINDOWSIZE.Y);
 
-    clog(new BubbleSort(makeArray(10000, 100000000000)));
+    //bubbleSort(makeArray(10, 100));
+    //await sleep(20000);
+    //quickSort(makeArray(10, 100));
+    //await sleep(20000);
+    countingSort(makeArray(20, 50), [0, 50]);
 }
   
-function draw()
+async function draw()
 {
     frameRate(60);
-    background(200, 200, 200);
+
+    tick++;
 }

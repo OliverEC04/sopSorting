@@ -1,3 +1,4 @@
+/*
 class BubbleSort
 {
     constructor(data)
@@ -46,4 +47,46 @@ class BubbleSort
 
         return data;
     }
+}
+*/
+
+async function bubbleSort(array)
+{
+    let step = 0;
+    let arrLen = array.length;
+    let arrayOld;
+
+    for (let i = 0; i < arrLen; i++)
+    {
+        arrayOld = [...array];
+
+        for (let j = 0; j < arrLen - i - 1; j++)
+        {
+            let a = array[j];
+            let b = array[j + 1];
+
+            if (compare(a, b)) //remake
+            {
+                array[j] = b;
+                array[j + 1] = a;
+            }
+
+            clear();
+            drawArray(array, [j, j + 1]);
+            drawInfo("Bubble sort", arrLen, step);
+
+            await sleep(SPEED);
+            clog(step);
+            step++;
+        }
+
+        if (arrayEqual(array, arrayOld))
+        {
+            break;
+        }
+    }
+
+    clear();
+    drawArray(array);
+    drawInfo("Bubble sort", arrLen, step);
 }
