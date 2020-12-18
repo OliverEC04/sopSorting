@@ -7,25 +7,19 @@ const WINDOWSIZE = {
 };
 const INFOHEIGHT = 80;
 const SPEED = 100;
+const WAIT = 10000;
+const EXCELTYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const MLAYERHEIGHT = 30;
 
 // Variabler
 let tick = 0;
 let qStep = 0;
+let mStep = 0;
+let mLayer = 0;
 
-async function setup()
+
+function setup()
 {
     createCanvas(WINDOWSIZE.X, WINDOWSIZE.Y);
-
-    //bubbleSort(makeArray(10, 100));
-    //await sleep(20000);
-    //quickSort(makeArray(10, 100));
-    //await sleep(20000);
-    countingSort(makeArray(20, 50), [0, 50]);
-}
-  
-async function draw()
-{
-    frameRate(60);
-
-    tick++;
+    //clog(mergeSort(makeArray(10, 100)));
 }

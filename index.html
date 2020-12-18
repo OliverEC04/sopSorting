@@ -2,16 +2,27 @@
 
 <html>
     <head>
+        <link rel="stylesheet" href="main.css">
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script>
+        <script src="js/fileSaver.js"></script>
+
         <script src="js/functions.js"></script>
         <script src="js/bubbleSort.js"></script>
-        <script src="js/quickSort.js"></script>
         <script src="js/mergeSort.js"></script>
+        <script src="js/quickSort.js"></script>
         <script src="js/countingSort.js"></script>
         <script src="js/main.js"></script>
     </head>
-    <body style="margin:0%; overflow:hidden; background-color: rgb(40, 40, 40)">
-
+    <body>
+        <button id="bubbleBtn" onclick="bubbleSort(makeArray(10, 100), true)">Vis bubble sort</button>
+        <button id="bubbleBenchBtn" onclick="benchmark(bubbleSort, [1, 100], 10, 100)">Download bubble sort målinger</button>
+        <button id="mergeBtn" onclick="mergeSort(makeArray(10, 100), true)">Vis merge sort</button>
+        <button id="mergeBenchBtn" onclick="benchmark(mergeSort, [1, 100], 10, 100)">Download merge sort målinger</button>
+        <button id="quickBtn" onclick="quickSort(makeArray(10, 100), true)">Vis quick sort</button>
+        <button id="quickBenchBtn" onclick="benchmark(quickSort, [1, 100], 10, 100)">Download quick sort målinger</button>
+        <button id="countBtn" onclick="countingSort(makeArray(10, 100), true)">Vis counting sort</button>
+        <button id="countBenchBtn" onclick="benchmark(countingSort, [1, 100], 10, 100)">Download counting sort målinger</button>
     </body>
 </html>

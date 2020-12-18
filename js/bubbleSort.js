@@ -50,8 +50,9 @@ class BubbleSort
 }
 */
 
-async function bubbleSort(array)
+async function bubbleSort(array, visual)
 {
+    let startTime = window.performance.now();
     let step = 0;
     let arrLen = array.length;
     let arrayOld;
@@ -71,12 +72,14 @@ async function bubbleSort(array)
                 array[j + 1] = a;
             }
 
-            clear();
-            drawArray(array, [j, j + 1]);
-            drawInfo("Bubble sort", arrLen, step);
-
-            await sleep(SPEED);
-            clog(step);
+            if (visual)
+            {
+                clear();
+                drawArray(array, [j, j + 1], [[240, 0, 0], [240, 0, 0]]);
+                drawInfo("Bubble sort", arrLen, step);
+    
+                await sleep(SPEED);
+            }
             step++;
         }
 
@@ -86,7 +89,11 @@ async function bubbleSort(array)
         }
     }
 
+    let endTime = window.performance.now();
+
     clear();
     drawArray(array);
-    drawInfo("Bubble sort", arrLen, step);
+    drawInfo("Bubble sort", arrLen, step, endTime - startTime);
+
+    return [array, [step, endTime - startTime]];
 }
