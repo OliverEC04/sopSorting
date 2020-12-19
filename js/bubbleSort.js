@@ -1,72 +1,22 @@
-/*
-class BubbleSort
-{
-    constructor(data)
-    {
-        this.data = data;
-        this.n = this.data.length;
-        this.steps = 0;
-
-        return this.sort();
-    }
-
-    sort()
-    {
-        let run = true;
-        let oldData = this.data;
-        let newData = this.data;
-
-        for (let i = 1; run; i++) // O(n^2)
-        {
-            oldData = [...newData];
-            newData = this.oneSort(newData);
-            run = !arrayEqual(oldData, newData);
-
-            this.steps++;
-        }
-
-        clog(this.steps + " steps");
-
-        return newData;
-    }
-
-    oneSort(array)
-    {
-        let data = [...array];
-
-        for (let i = 0; i < this.n - 1; i++) // O(n)
-        {
-            let low = data[i] < data[i + 1] ? data[i] : data[i + 1];
-            let high = data[i] > data[i + 1] ? data[i] : data[i + 1];
-
-            data[i] = low;
-            data[i + 1] = high;
-
-            this.steps++;
-        }
-
-        return data;
-    }
-}
-*/
-
 async function bubbleSort(array, visual)
 {
-    let startTime = window.performance.now();
+    let startTime = window.performance.now(); // Bestem starttidspunkt
     let step = 0;
     let arrLen = array.length;
     let arrayOld;
 
+    // Kører igennem listen n gange
     for (let i = 0; i < arrLen; i++)
     {
         arrayOld = [...array];
 
+        // Kører igennem listen n - i - 1 gange (i er beskrevet i analysen)
         for (let j = 0; j < arrLen - i - 1; j++)
         {
             let a = array[j];
             let b = array[j + 1];
 
-            if (compare(a, b)) //remake
+            if (compare(a, b))
             {
                 array[j] = b;
                 array[j + 1] = a;
@@ -83,14 +33,16 @@ async function bubbleSort(array, visual)
             step++;
         }
 
+        // Hvis nuværende liste, og listen før er ens, stopper sorteringen
         if (arrayEqual(array, arrayOld))
         {
             break;
         }
     }
 
-    let endTime = window.performance.now();
+    let endTime = window.performance.now(); // Bestemmer sluttidspunkt
 
+    // Visuelt
     clear();
     drawArray(array);
     drawInfo("Bubble sort", arrLen, step, endTime - startTime);

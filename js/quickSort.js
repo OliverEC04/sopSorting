@@ -1,8 +1,8 @@
 async function quickSort(array, visual)
 {
-    let startTime = window.performance.now();
-    let resultArr = await quickSortPart(array, 0, array.length - 1, visual);
-    let endTime = window.performance.now();
+    let startTime = window.performance.now(); // Bestemmer starttidspunkt
+    let resultArr = await quickSortPart(array, 0, array.length - 1, visual); // Sorterer listen, og venter til den er færdig med at fortsætte
+    let endTime = window.performance.now(); // Bestemmer sluttidspunkt
 
     return [resultArr, [qStep, endTime - startTime]];
 }
@@ -26,10 +26,12 @@ async function quickSortPart(array, start, end, visual)
         }
     }
 
+    // Kører den del af listen ignenem der skal sorteres
     for (let i = start; i <= end; i++)
     {
         qStep++;
 
+        // Byt hvis i er mindre end pivot. Flyt pivot til fastlåste plads
         if (array[i] < array[end] || i == end)
         {
             ref++;
@@ -54,6 +56,7 @@ async function quickSortPart(array, start, end, visual)
         }
     }
 
+    // Gentag sorteringen for de resterende dele, hvis nogle, ved hjælp af rekursion
     if (ref != start - 1)
     {
         await quickSortPart(array, start, ref - 1, visual);

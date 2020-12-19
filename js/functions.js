@@ -37,16 +37,18 @@ function makeArray(length, maxVal) // Lav array ud fra længde og max-værdi
     return array;
 }
 
-function drawArray(array, highlight, colors) // Tegn et array visuelt
+function drawArray(array, highlight, colors) // Tegn et liste visuelt med størrelse
 {
     let arrLen = array.length;
     let arrMax = Math.max(...array);
     let rectSizeX = WINDOWSIZE.X / arrLen;
 
+    // Kører igennem listen
     for (let i = 0; i < arrLen; i++)
     {
-        let rectSizeY = (WINDOWSIZE.Y - INFOHEIGHT) / arrMax * array[i] * .8;
+        let rectSizeY = (WINDOWSIZE.Y - INFOHEIGHT) / arrMax * array[i] * .8; // Bestemmer bredden af rektanglet ud fra antallet af elementer, og vinduestørrelsen
 
+        // Farv de higlightede elementer
         if (highlight != undefined && highlight.includes(i))
         {
             fill(100, 100, 100);
@@ -63,6 +65,7 @@ function drawArray(array, highlight, colors) // Tegn et array visuelt
         {
             fill(240, 240, 240);
         }
+        // Tegn rektanglet
         noStroke();
         rect(i * rectSizeX + rectSizeX * .1, WINDOWSIZE.Y * .9 - rectSizeY, rectSizeX * .8, rectSizeY, 4);
         textSize(20);
@@ -75,19 +78,22 @@ function drawArray2(array, highlight, colors, position, maxSize, labels) // Tegn
     let posX = 0;
     let posY = 0;
     let arrLen = array.length;
-    let sqrSize = WINDOWSIZE.X * .9 / arrLen;
+    let sqrSize = WINDOWSIZE.X * .9 / arrLen; // Bestemmer bredden af kvadraten ud fra antallet af elementer, og vinduestørrelsen
 
+    // Bestemmer positionen hvis den ikke er angivet
     if (position != undefined)
     {
         posX = position[0] === undefined ? 0 : position[0];
         posY = position[1] === undefined ? 0 : position[1];
     }
 
+    // Bestemmer størrelsen hvis den ikke er angivet
     if (maxSize != undefined)
     {
         sqrSize = WINDOWSIZE.X * .9 / arrLen > maxSize ? maxSize : WINDOWSIZE.X * .9 / arrLen;
     }
 
+    // Tegn forklaringen til venstre for listen
     if (labels)
     {
         fill(240, 240, 240);
@@ -97,8 +103,10 @@ function drawArray2(array, highlight, colors, position, maxSize, labels) // Tegn
         text("Værdi:", posX, WINDOWSIZE.Y * .1 + 100 + posY);
     }
 
+    // Kører listen igennem
     for (let i = 0; i < arrLen; i++)
     {
+        // Farv element hvis det er highlightet
         if (highlight != undefined && highlight.includes(i))
         {
             fill(240, 0, 0);
@@ -115,7 +123,7 @@ function drawArray2(array, highlight, colors, position, maxSize, labels) // Tegn
         {
             fill(240, 240, 240);
         }
-        
+        // Tegner element
         noStroke();
         textSize(sqrSize * .5);
         text(str(i), posX + i * sqrSize + WINDOWSIZE.X * .1 + sqrSize * .25, WINDOWSIZE.Y * .1 - sqrSize * .1 + 80 + posY);
@@ -172,12 +180,12 @@ function drawInfo(name, length, steps, time)
     }
 }
 
-function compare(a, b)
+function compare(a, b) // Sammenligner om a er større end b
 {
     return a > b ? true : false;
 }
 
-function arrayToExcel(sheetsArray, name)
+function arrayToExcel(sheetsArray, name) // Gemmer en liste i et excel ark
 {
     let sheet = [];
     let workbook = {
@@ -185,6 +193,7 @@ function arrayToExcel(sheetsArray, name)
         SheetNames:[]
     };
 
+    // Tilføjer hver liste i listen, som en række i excel arket
     for (let i = 0; i < sheetsArray.length; i++)
     {
         sheet[i] = XLSX.utils.aoa_to_sheet(sheetsArray[i]);
@@ -193,12 +202,11 @@ function arrayToExcel(sheetsArray, name)
     }
 
     let excelBuffer = XLSX.write(workbook, {bookType:'xlsx', type:'array'});
-    console.log(excelBuffer);
 
     saveExcel(excelBuffer, name === undefined ? "Untitled" : str(name));
 }
 
-function saveExcel(buffer, name)
+function saveExcel(buffer, name) // Gemmer excel arket på computeren
 {
     let excelData = new Blob([buffer], {type: EXCELTYPE});
     saveAs(excelData, name + ".xlsx");

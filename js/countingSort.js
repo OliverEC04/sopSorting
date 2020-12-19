@@ -8,6 +8,7 @@
     let countArr = [];
     let newArr = [];
 
+    // Find laveste og højeste værdi i listen
     for (let i = 0; i < arrLen; i++)
     {
         low = array[i] < low ? array[i] : low;
@@ -25,6 +26,7 @@
         step++;
     }
 
+    // Lav en tælleliste der er lige så lang som den højeste værdi i den usorterede liste, og fyld tællelisten med nuller
     for (let i = low; i <= high; i++)
     {
         countArr[i] = 0;
@@ -42,6 +44,7 @@
         step++;
     }
 
+    // Plus 1 i tællelisten for hver værdi i den usorterde liste
     for (let i = 0; i < arrLen; i++)
     {
         countArr[array[i]]++;
@@ -59,6 +62,7 @@
         step++;
     }
 
+    // Akkummuler tællelisten
     for (let i = low + 1; i <= high; i++)
     {
         countArr[i] += countArr[i - 1];
@@ -76,6 +80,7 @@
         step++;
     }
 
+    // Ryk de usorterede elementer på den sorterede plads i den sorterede liste
     for (let i = 0; i < arrLen; i++)
     {
         countArr[array[i]]--;
@@ -97,6 +102,7 @@
 
     let endTime = window.performance.now();
 
+    // Visuelt
     clear();
     drawArray2(array, undefined, undefined, undefined, 50, true);
     drawArray2(countArr, undefined, undefined, [0, 100], 50, true);

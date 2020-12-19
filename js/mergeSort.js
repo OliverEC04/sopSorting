@@ -1,9 +1,9 @@
 async function mergeSort(array, visual)
 {
-    let startTime = window.performance.now();
+    let startTime = window.performance.now(); // Bestemmer starttidspunkt
     let arrLen = array.length;
-    let resultArr = await mergeSortPart(array, arrLen, visual);
-    let endTime = window.performance.now();
+    let resultArr = await mergeSortPart(array, arrLen, visual); // Sorterer listen, og venter til den er færdig med at fortsætte
+    let endTime = window.performance.now(); // Bestemmer sluttidspunkt
 
     return [resultArr, [mStep, endTime - startTime]];
 }
@@ -23,7 +23,7 @@ async function mergeSortPart(array, arrLen, visual)
   
     if (visual)
     {
-        drawArray2(array, undefined, undefined, [WINDOWSIZE.X / 2, MLAYERHEIGHT * mLayer], 15);
+        drawArray2(array, undefined, undefined, [WINDOWSIZE.X / 2, MLAYERHEIGHT * mStep], MLAYERHEIGHT / 2);
         drawInfo("Merge sort", arrLen, mStep);
 
         await sleep(SPEED);
@@ -56,8 +56,8 @@ async function merge(arr1, arr2, arrLen, visual)
 
         if (visual)
         {
-            drawArray2(arr1, undefined, undefined, [0, mStep * 30], 15);
-            drawArray2(arr2, undefined, undefined, [250, mStep * 30], 15);
+            drawArray2(arr1, undefined, undefined, [0, mStep * MLAYERHEIGHT], MLAYERHEIGHT / 2);
+            drawArray2(arr2, undefined, undefined, [250, mStep * MLAYERHEIGHT], MLAYERHEIGHT / 2);
             drawInfo("Merge sort", arrLen, mStep);
     
             await sleep(SPEED);
@@ -70,7 +70,7 @@ async function merge(arr1, arr2, arrLen, visual)
 
     if (visual)
     {
-        drawArray2(resultArr, undefined, undefined, [750, mStep * 30], 15);
+        drawArray2(resultArr, undefined, undefined, [750, mStep * MLAYERHEIGHT], MLAYERHEIGHT / 2);
         drawInfo("Merge sort", arrLen, mStep);
         
         await sleep(SPEED);
